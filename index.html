@@ -1,276 +1,79 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Fixed Interactive Navigation</title>
-<style>
-  :root{
-    --nav-height: 64px;
-    --bg: #262230;            /* default page bg */
-    --nav-bg-trans: rgba(38,34,48,0.05); /* nav bg when at top (slightly translucent) */
-    --nav-bg-solid: rgba(15,12,25,0.98); /* nav bg after scroll */
-    --link-color: #e9e9ef;    /* default link color */
-    --link-color-dark: #0f0f12; /* color for contrast on light backgrounds if needed */
-    --accent: #ffd166;        /* accent color for hover/active */
-    --transition: 240ms ease;
-  }
-
-  /* Basic reset */
-  *{box-sizing:border-box;margin:0;padding:0}
-  html,body{height:100%}
-  body{
-    font-family: Inter, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background: var(--bg);
-    color: #fff;
-    line-height:1.5;
-    -webkit-font-smoothing:antialiased;
-    -moz-osx-font-smoothing:grayscale;
-  }
-
-  /* Fixed nav */
-  .site-nav{
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: var(--nav-height);
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding: 0 22px;
-    z-index: 1000;
-    background: var(--nav-bg-trans);
-    backdrop-filter: blur(6px);
-    transition: background var(--transition), box-shadow var(--transition), padding var(--transition);
-  }
-
-  /* Scrolled state: darker / solid */
-  .site-nav.scrolled{
-    background: var(--nav-bg-solid);
-    box-shadow: 0 6px 20px rgba(5,5,10,0.45);
-  }
-
-  .brand{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    color: var(--link-color);
-    text-decoration:none;
-    font-weight:600;
-    letter-spacing:0.2px;
-  }
-
-  /* Navigation menu */
-  .nav-list{
-    list-style:none;
-    display:flex;
-    gap: 18px;
-    align-items:center;
-  }
-
-  .nav-list a{
-    display:inline-block;
-    padding: 6px 8px;
-    color: var(--link-color);
-    text-decoration:none;
-    border-radius:6px;
-    transition: color var(--transition), background var(--transition), transform var(--transition);
-    font-weight:500;
-  }
-
-  /* Hover style for menu items */
-  .nav-list a:hover,
-  .nav-list a:focus{
-    background: rgba(255,255,255,0.06);
-    color: var(--accent);
-    transform: translateY(-1px);
-    outline: none;
-  }
-
-  /* Active / current page style */
-  .nav-list a.active{
-    background: linear-gradient(90deg, rgba(255,209,102,0.12), rgba(255,209,102,0.06));
-    color: var(--accent);
-    box-shadow: inset 0 -3px 0 rgba(255,209,102,0.18);
-  }
-
-  /* When nav is scrolled we might want link colors different */
-  .site-nav.scrolled .nav-list a{
-    color: #e6e6f0;
-  }
-  .site-nav.scrolled .nav-list a:hover,
-  .site-nav.scrolled .nav-list a:focus{
-    color: #fff; /* keep hover readable on dark solid bg */
-    background: rgba(255,255,255,0.04);
-  }
-
-  /* Mobile: hamburger toggle */
-  .nav-toggle{
-    display:none;
-    background:transparent;
-    border:0;
-    color:var(--link-color);
-    font-size:20px;
-  }
-
-  /* Drawer style for small screens */
-  @media (max-width: 720px){
-    .nav-toggle{display:inline-flex; align-items:center; gap:8px; cursor:pointer}
-    .nav-list{
-      position: fixed;
-      top: var(--nav-height);
-      right: -100%;
-      width: 70%;
-      max-width: 320px;
-      height: calc(100% - var(--nav-height));
-      flex-direction: column;
-      background: rgba(10,7,14,0.98);
-      padding: 16px;
-      gap: 12px;
-      transition: right 260ms ease;
-      box-shadow: -6px 0 20px rgba(0,0,0,0.6);
-    }
-    .nav-list.show{
-      right: 0;
-    }
-    .nav-list a{
-      padding: 12px;
-      font-size: 16px;
-      border-radius:8px;
-      width:100%;
-    }
-  }
-
-  /* Page content used to show scrolling */
-  main{
-    padding-top: calc(var(--nav-height) + 18px);
-    max-width: 1000px;
-    margin: 0 auto;
-    padding-left:20px;
-    padding-right:20px;
-  }
-
-  section{
-    padding: 80px 0;
-  }
-
-  h1{font-size:28px;margin-bottom:8px}
-  p{color:#d8d8e0}
-
-  /* Simple focus styles for accessibility */
-  a:focus-visible, button:focus-visible{
-    outline: 3px solid rgba(255,209,102,0.18);
-    outline-offset: 3px;
-    border-radius:6px;
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Incredible India</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-<nav class="site-nav" id="siteNav" aria-label="Primary">
-  <a class="brand" href="#" aria-current="page">
-    <!-- Simple logo text -->
-    <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-      <circle cx="12" cy="12" r="10" fill="#ffd166"></circle>
-    </svg>
-    MySite
-  </a>
+  <nav id="navbar">
+    <ul>
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#states">States</a></li>
+      <li><a href="#uts">Union Territories</a></li>
+      <li><a href="#tourism">Tourist Spots</a></li>
+      <li><a href="#culture">Culture</a></li>
+    </ul>
+  </nav>
 
-  <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="primary-navigation" aria-label="Open menu">
-    ☰
-  </button>
+  <header>
+    <h1>Incredible India</h1>
+    <p>Unity in Diversity</p>
+  </header>
 
-  <ul class="nav-list" id="primary-navigation">
-    <li><a href="#home" class="active">Home</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#features">Features</a></li>
-    <li><a href="#pricing">Pricing</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-</nav>
+  <main>
+    <section id="overview">
+      <h2>Overview</h2>
+      <p>India is a diverse country in South Asia, known for its rich culture, history, languages, and landscapes. It is the seventh-largest country by land area and the most populous democracy in the world.</p>
+    </section>
 
-<main>
-  <!-- Example content so page has scroll -->
-  <section id="home">
-    <h1>Home</h1>
-    <p>Welcome — scroll down to see the navigation change its color and style.</p>
-  </section>
+    <section id="states">
+      <h2>States of India</h2>
+      <p>India consists of 28 states, each with its own government. Some major states include:</p>
+      <ul>
+        <li>Maharashtra</li>
+        <li>Uttar Pradesh</li>
+        <li>Tamil Nadu</li>
+        <li>Rajasthan</li>
+        <li>Karnataka</li>
+      </ul>
+    </section>
 
-  <section id="about">
-    <h1>About</h1>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum a quam non mi feugiat mollis.</p>
-  </section>
+    <section id="uts">
+      <h2>Union Territories</h2>
+      <p>India has 8 Union Territories, governed directly by the Central Government. Examples include:</p>
+      <ul>
+        <li>Delhi</li>
+        <li>Chandigarh</li>
+        <li>Puducherry</li>
+        <li>Ladakh</li>
+        <li>Andaman and Nicobar Islands</li>
+      </ul>
+    </section>
 
-  <section id="features">
-    <h1>Features</h1>
-    <p>Interactive hover states, fixed position, and responsive mobile navigation.</p>
-  </section>
+    <section id="tourism">
+      <h2>Popular Tourist Spots</h2>
+      <ul>
+        <li>Taj Mahal, Agra</li>
+        <li>Jaipur - The Pink City</li>
+        <li>Kerala Backwaters</li>
+        <li>Varanasi Ghats</li>
+        <li>Goa Beaches</li>
+      </ul>
+    </section>
 
-  <section id="pricing">
-    <h1>Pricing</h1>
-    <p>Choose a plan that fits. (This is placeholder content.)</p>
-  </section>
+    <section id="culture">
+      <h2>Culture</h2>
+      <p>India's culture is an amalgamation of art, architecture, music, dance, festivals, cuisine, and spirituality. Every region brings its own flavors, languages, and traditions to the mix.</p>
+    </section>
+  </main>
 
-  <section id="contact">
-    <h1>Contact</h1>
-    <p>Get in touch — this section demonstrates link highlighting on click.</p>
-  </section>
+  <footer>
+    <p>&copy; 2025 Incredible India. All rights reserved.</p>
+  </footer>
 
-  <!-- Add extra vertical space to make scroll obvious -->
-  <div style="height:420px;"></div>
-</main>
-
-<script>
-  (function(){
-    const nav = document.getElementById('siteNav');
-    const toggle = document.getElementById('navToggle');
-    const navList = document.getElementById('primary-navigation');
-    const links = navList.querySelectorAll('a');
-
-    // Toggle mobile nav
-    toggle.addEventListener('click', () => {
-      const isOpen = navList.classList.toggle('show');
-      toggle.setAttribute('aria-expanded', String(isOpen));
-      toggle.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
-    });
-
-    // Close mobile nav if a link is clicked (for single-page anchors)
-    links.forEach(a => {
-      a.addEventListener('click', () => {
-        if (navList.classList.contains('show')) {
-          navList.classList.remove('show');
-          toggle.setAttribute('aria-expanded', 'false');
-          toggle.setAttribute('aria-label', 'Open menu');
-        }
-
-        // update active class (simple client-side behavior)
-        links.forEach(l => l.classList.remove('active'));
-        a.classList.add('active');
-      });
-    });
-
-    // Change nav style on scroll
-    const onScroll = () => {
-      if (window.scrollY > 50) {
-        nav.classList.add('scrolled');
-      } else {
-        nav.classList.remove('scrolled');
-      }
-    };
-
-    // Run once on load in case page is opened already scrolled
-    onScroll();
-    window.addEventListener('scroll', onScroll, {passive:true});
-
-    // Optional: close mobile menu when resizing to large screens
-    window.addEventListener('resize', () => {
-      if (window.innerWidth > 720 && navList.classList.contains('show')) {
-        navList.classList.remove('show');
-        toggle.setAttribute('aria-expanded','false');
-      }
-    });
-  })();
-</script>
+  <script src="script.js"></script>
 </body>
 </html>
